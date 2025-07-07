@@ -1,47 +1,98 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <Sidebar />
 
-    <div class="wrapper">
-      <HelloWorld msg="Olla did it!" />
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <!-- Header -->
+      <Header />
+
+      <!-- Tables Section -->
+      <main class="tables-main">
+        <!-- First Row: Development Table and Check Table -->
+        <div class="tables-row">
+          <DevelopmentTable />
+          <CheckTable />
+        </div>
+
+        <!-- Second Row: 4-Column Table and Complex Table -->
+        <div class="tables-row">
+          <FourColumnTable />
+          <ComplexTable />
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <Footer />
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
+<script setup>
+import Sidebar from "./components/Sidebar.vue";
+import Header from "./components/Header.vue";
+import DevelopmentTable from "./components/tables/DevelopmentTable.vue";
+import CheckTable from "./components/tables/CheckTable.vue";
+import FourColumnTable from "./components/tables/FourColumnTable.vue";
+import ComplexTable from "./components/tables/ComplexTable.vue";
+import Footer from "./components/Footer.vue";
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--secondary-grey-300);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--secondary-grey-300);
+  overflow-x: hidden;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+.tables-main {
+  flex: 1;
+  padding: 0 30px 30px;
+}
+
+.tables-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.tables-row:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1200px) {
+  .tables-row {
+    flex-direction: column;
+    gap: 15px;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  .tables-main {
+    padding: 0 15px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .tables-main {
+    padding: 0 10px 10px;
+  }
+
+  .tables-row {
+    gap: 10px;
   }
 }
 </style>
